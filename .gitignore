@@ -1,0 +1,9 @@
+a.out
+*.exe
+*.o
+*.class
+*.log
+*.bin
+*.cppNoExt
+.DS_Store
+.vscode/
