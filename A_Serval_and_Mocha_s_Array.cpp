@@ -53,8 +53,8 @@ using namespace std;
 #define each(x,a)       for(auto &x : a)
 
 // [ Parlay ]
-#define yes             cout<<"YES\n"
-#define no              cout<<"NO\n"
+#define yes             cout<<"Yes\n"
+#define no              cout<<"No\n"
 #define nl              '\n'
 #define spc             " "
 
@@ -69,33 +69,27 @@ const ll octroi = 1e7;
 
 // [ The Great Adventure ] ----------------------------------
 void solve() {
-    ll n, sum; cin>>n>>sum;
+    ll n; cin>>n;
     VEC v(n);
-    vector<pair<ll,ll>>mp;
+    bool one = false;
     rep(i, 0, n){
         cin>>v[i];
-        mp.push_back({v[i], i+1});
     }
-
-    sort(all(mp));
-
-    ll l = 0, r = n-1;
-    while(l<r){
-        ll lf = mp[l].first, rg = mp[r].first;
-        if(lf + rg > sum) r--;
-        else if(lf + rg < sum) l++;
-        else{
-            cout<<mp[l].second<<spc<<mp[r].second<<nl; return;
+    rep(i, 0, n-1){
+        rep(j, i+1, n){
+            if(gcd(v[i], v[j]) <= 2){
+                yes; return;
+            }
         }
     }
-    cout<<"IMPOSSIBLE\n";
+    no;
 }
 
 // [ Black Pearl ] -------------------------------------------
 signed main() {
     Think_Like_Jack_Sparrow
 
-    // int t; cin >> t; while(t--)
+    int t; cin >> t; while(t--)
     solve();
 
     return 0;

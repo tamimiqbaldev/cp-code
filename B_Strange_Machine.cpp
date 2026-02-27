@@ -63,39 +63,52 @@ using namespace std;
 #define printv(v)       for(auto x : v) cerr << x << ' '; cerr << nl
 
 // [ Secret Map ] 
-const ll octroi = 1e7;
+const ll M = 1e7;
 // vector<int> dp(octroi, -1);
 // bitset<octroi> vc;
 
 // [ The Great Adventure ] ----------------------------------
 void solve() {
-    ll n, sum; cin>>n>>sum;
-    VEC v(n);
-    vector<pair<ll,ll>>mp;
+    ll n, q; cin>>n>>q;
+    string s; cin>>s;
+    bool only_a = true;
+    bool only_b = true;
+
     rep(i, 0, n){
-        cin>>v[i];
-        mp.push_back({v[i], i+1});
-    }
-
-    sort(all(mp));
-
-    ll l = 0, r = n-1;
-    while(l<r){
-        ll lf = mp[l].first, rg = mp[r].first;
-        if(lf + rg > sum) r--;
-        else if(lf + rg < sum) l++;
-        else{
-            cout<<mp[l].second<<spc<<mp[r].second<<nl; return;
+        if(s[i] == 'A'){
+            only_b = false; 
+        }else{
+            only_a = false; 
         }
     }
-    cout<<"IMPOSSIBLE\n";
+
+
+    while(q--){
+        ll x; cin>>x;
+
+        ll idx = 0, sec = 0;
+        
+        if(only_a){
+            cout<<x<<nl; continue;
+        }
+
+
+        while(x){
+            if(s[idx] == 'A') x--;
+            else x = x >> 1; 
+            sec++;
+            idx++;
+            if(idx == n) idx = 0;
+        }
+        cout<<sec<<nl;
+    }
 }
 
 // [ Black Pearl ] -------------------------------------------
 signed main() {
     Think_Like_Jack_Sparrow
 
-    // int t; cin >> t; while(t--)
+    int t; cin >> t; while(t--)
     solve();
 
     return 0;

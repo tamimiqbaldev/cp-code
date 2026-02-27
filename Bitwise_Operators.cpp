@@ -69,26 +69,29 @@ const ll octroi = 1e7;
 
 // [ The Great Adventure ] ----------------------------------
 void solve() {
-    ll n, sum; cin>>n>>sum;
-    VEC v(n);
-    vector<pair<ll,ll>>mp;
-    rep(i, 0, n){
-        cin>>v[i];
-        mp.push_back({v[i], i+1});
-    }
+    ll n, k; cin>>n>>k;
+    ll xxor = -1, aand = -1, oor = -1;
+    ll ans1 = 0, ans2 = 0, ans3 = 0;
+    rep(i, 1, n+1){
+        rep(j, i+1, n+1){
+            xxor = max(xxor, (i ^ j));
+            aand = max(aand, (i & j));
+            oor = max(oor, (i | j));
 
-    sort(all(mp));
+            // cout<<"And: "<<aand<<nl;
 
-    ll l = 0, r = n-1;
-    while(l<r){
-        ll lf = mp[l].first, rg = mp[r].first;
-        if(lf + rg > sum) r--;
-        else if(lf + rg < sum) l++;
-        else{
-            cout<<mp[l].second<<spc<<mp[r].second<<nl; return;
+            if(aand < k){
+                ans1 = max(ans1, aand);
+            }
+            if(oor < k){
+                ans2 = max(ans2, oor);
+            }
+            if(xxor < k){
+                ans3 = max(ans3, xxor);
+            }
         }
     }
-    cout<<"IMPOSSIBLE\n";
+    cout<<ans1<<nl<<ans2<<nl<<ans3<<nl;
 }
 
 // [ Black Pearl ] -------------------------------------------

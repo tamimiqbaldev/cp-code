@@ -63,39 +63,32 @@ using namespace std;
 #define printv(v)       for(auto x : v) cerr << x << ' '; cerr << nl
 
 // [ Secret Map ] 
-const ll octroi = 1e7;
+const ll M = 1e7;
 // vector<int> dp(octroi, -1);
 // bitset<octroi> vc;
 
 // [ The Great Adventure ] ----------------------------------
 void solve() {
-    ll n, sum; cin>>n>>sum;
-    VEC v(n);
-    vector<pair<ll,ll>>mp;
+    ll n; cin>>n; string s; cin>>s;
+    map<string, int>mps;
+    ll ans = 1;
     rep(i, 0, n){
-        cin>>v[i];
-        mp.push_back({v[i], i+1});
+        string sx = s;
+        s = s.substr(i+1, n-i-1);
+        if(!mps.count(s)) ans++;
+        else mps[s]++;
+        string ns = sx[i] + s.substr(i+2, n-i-2);
+        if(!mps.count(ns)) ans++;
+        else mps[ns]++;
     }
-
-    sort(all(mp));
-
-    ll l = 0, r = n-1;
-    while(l<r){
-        ll lf = mp[l].first, rg = mp[r].first;
-        if(lf + rg > sum) r--;
-        else if(lf + rg < sum) l++;
-        else{
-            cout<<mp[l].second<<spc<<mp[r].second<<nl; return;
-        }
-    }
-    cout<<"IMPOSSIBLE\n";
+    cout<<ans<<nl;
 }
 
 // [ Black Pearl ] -------------------------------------------
 signed main() {
     Think_Like_Jack_Sparrow
 
-    // int t; cin >> t; while(t--)
+    int t; cin >> t; while(t--)
     solve();
 
     return 0;

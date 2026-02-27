@@ -69,33 +69,72 @@ const ll octroi = 1e7;
 
 // [ The Great Adventure ] ----------------------------------
 void solve() {
-    ll n, sum; cin>>n>>sum;
-    VEC v(n);
-    vector<pair<ll,ll>>mp;
+    ll n; cin>>n;
+    VEC v(n); MP mp;
     rep(i, 0, n){
         cin>>v[i];
-        mp.push_back({v[i], i+1});
+        mp[v[i]] = i;
     }
+    VEC vv = v;
+    sort(rall(vv));
 
-    sort(all(mp));
-
-    ll l = 0, r = n-1;
-    while(l<r){
-        ll lf = mp[l].first, rg = mp[r].first;
-        if(lf + rg > sum) r--;
-        else if(lf + rg < sum) l++;
-        else{
-            cout<<mp[l].second<<spc<<mp[r].second<<nl; return;
+    ll suru, ses;
+    bool elomelo = false;
+    rep(i, 0, n){
+        if(v[i] < vv[i]){
+            elomelo = true;
+            suru = i;
+            ses = mp[vv[i]];
+            break;
         }
     }
-    cout<<"IMPOSSIBLE\n";
+    // rep(i, 0, n) cout<<vv[i]<<spc; cout<<nl;
+    // cout<<suru<<spc<<ses<<nl; return;
+    if(elomelo){
+        VEC ek, dui, tin;
+        rep(i, 0, suru){
+            ek.push_back(v[i]);
+        }
+    
+        rep(i, suru, ses + 1){
+            dui.push_back(v[i]);
+        }
+        reverse(all(dui));
+    
+        rep(k, ses+1, n){
+            tin.push_back(v[k]);
+        }
+    
+        if(sz(ek)){
+            rep(i, 0, sz(ek)){
+                cout<<ek[i]<<spc;
+            }
+        }
+        if(sz(dui)){
+            rep(i, 0, sz(dui)){
+                cout<<dui[i]<<spc;
+            }
+        }
+    
+        if(sz(tin)){
+            rep(i, 0, sz(tin)){
+                cout<<tin[i]<<spc;
+            }
+        }
+    }else{
+        rep(i, 0, n){
+            cout<<v[i]<<spc;
+        }
+    }
+
+    cout<<nl;
 }
 
 // [ Black Pearl ] -------------------------------------------
 signed main() {
     Think_Like_Jack_Sparrow
 
-    // int t; cin >> t; while(t--)
+    int t; cin >> t; while(t--)
     solve();
 
     return 0;

@@ -71,24 +71,12 @@ const ll octroi = 1e7;
 void solve() {
     ll n, sum; cin>>n>>sum;
     VEC v(n);
-    vector<pair<ll,ll>>mp;
+    for(auto &i: v) cin>>i;
+
+    ll sm = 0, l = 0, mx = ;
     rep(i, 0, n){
-        cin>>v[i];
-        mp.push_back({v[i], i+1});
-    }
 
-    sort(all(mp));
-
-    ll l = 0, r = n-1;
-    while(l<r){
-        ll lf = mp[l].first, rg = mp[r].first;
-        if(lf + rg > sum) r--;
-        else if(lf + rg < sum) l++;
-        else{
-            cout<<mp[l].second<<spc<<mp[r].second<<nl; return;
-        }
     }
-    cout<<"IMPOSSIBLE\n";
 }
 
 // [ Black Pearl ] -------------------------------------------

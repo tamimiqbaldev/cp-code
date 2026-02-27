@@ -63,39 +63,99 @@ using namespace std;
 #define printv(v)       for(auto x : v) cerr << x << ' '; cerr << nl
 
 // [ Secret Map ] 
-const ll octroi = 1e7;
+const ll M = 1e7;
 // vector<int> dp(octroi, -1);
 // bitset<octroi> vc;
 
 // [ The Great Adventure ] ----------------------------------
+// void solve() {
+//     string s; cin>>s;
+    
+//     ll n = sz(s);
+//     ll smm = 0;
+//     rep(i, 0, n){
+//         smm += (s[i]-'0');
+//     }
+//     ll cn = 0;
+//     if(smm > 9 && s[0] != '1'){
+//         s[0] = '1';  cn = 1;
+//     }
+//     sort(all(s));
+//     // cout<<s<<nl;
+
+//     // VEC v(n+1);
+//     // rep(i, 1, n+1){
+//     //     v[i] = v[i-1] + (s[i-1]-'0');
+//     // }
+//     // rep(i, 1, n+1) cout<<v[i]<<spc; cout<<nl;
+//     // ll ans = 0;
+//     // rrep(i, n, 1){
+//     //     if(v[i] >= 9){
+//     //         cout<<v[i]<<spc;
+//     //         v[i] = v[i] - (s[i-1]-'0') + 1;
+//     //         cout<<v[i]<<nl;
+//     //         ans++;
+//     //     }
+//     //     if(v[i]<10) break;
+//     // }
+//     // cout<<ans<<nl;
+
+
+
+//     // ll sm = 0;
+//     // rep(i, 0, n){
+//     //     sm += (s[i]-'0');
+//     // }
+
+//     // ll ans = 0;
+//     ll bad =0;
+//     ll sm = 0;
+//     for(ll i = 0; i<n; i++){
+//         sm += (s[i]-'0'); ++bad;
+//         // cout<<sm<<nl;
+//         if(sm > 9){
+//             --bad; break;
+//         }
+//     }
+//     cout<<n-bad+cn<<nl;
+//     //     sm -= (s[i]-'0'); ++ans;
+//     // }
+//     // // cout<<ans<<nl;
+
+// }
+
 void solve() {
-    ll n, sum; cin>>n>>sum;
-    VEC v(n);
-    vector<pair<ll,ll>>mp;
-    rep(i, 0, n){
-        cin>>v[i];
-        mp.push_back({v[i], i+1});
+    string s; cin >> s;
+    ll n = sz(s);
+    
+    ll sm = 0; 
+    for(auto c: s) sm += (c-'0');
+    if(sm < 10){
+        cout<<0<<nl; return;
     }
 
-    sort(all(mp));
+    VEC reduce(n);
+    reduce[0] = ((s[0]-'0')-1);
+    rep(i, 1, n) reduce[i] = (s[i]-'0');
+    
+    sort(rall(reduce));
+    ll mv = 0;
 
-    ll l = 0, r = n-1;
-    while(l<r){
-        ll lf = mp[l].first, rg = mp[r].first;
-        if(lf + rg > sum) r--;
-        else if(lf + rg < sum) l++;
-        else{
-            cout<<mp[l].second<<spc<<mp[r].second<<nl; return;
+    rep(i, 0, n){
+        sm -= reduce[i];
+        mv++;
+        if(sm < 10){
+            cout<<mv<<nl; return;
         }
     }
-    cout<<"IMPOSSIBLE\n";
 }
+
 
 // [ Black Pearl ] -------------------------------------------
 signed main() {
     Think_Like_Jack_Sparrow
 
-    // int t; cin >> t; while(t--)
+    int t; cin >> t; while(t--)
     solve();
 
     return 0;

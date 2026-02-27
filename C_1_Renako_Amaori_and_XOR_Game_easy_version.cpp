@@ -69,33 +69,63 @@ const ll octroi = 1e7;
 
 // [ The Great Adventure ] ----------------------------------
 void solve() {
-    ll n, sum; cin>>n>>sum;
-    VEC v(n);
-    vector<pair<ll,ll>>mp;
+    ll n; cin>>n;
+    VEC a(n), b(n);
+    
+    ll zero_a = 0, zero_b = 0;
+
     rep(i, 0, n){
-        cin>>v[i];
-        mp.push_back({v[i], i+1});
+        cin>>a[i];
+        if(a[i]==1) zero_a++;
     }
 
-    sort(all(mp));
+    rep(i, 0, n){
+        cin>>b[i];
+        if(b[i] == 1) zero_b++;
+    }
 
-    ll l = 0, r = n-1;
-    while(l<r){
-        ll lf = mp[l].first, rg = mp[r].first;
-        if(lf + rg > sum) r--;
-        else if(lf + rg < sum) l++;
-        else{
-            cout<<mp[l].second<<spc<<mp[r].second<<nl; return;
+    if(zero_a & 1 && zero_b & 1){
+        cout<<"Tie\n"; return;
+    }
+
+    if(zero_a % 2 == 0){
+        rep(i, 0, n){
+            if((i % 2 == 0) && (a[i] == 0 && b[i] == 1)){
+                zero_a++; zero_b--;
+                swap(a[i], b
+                    [i]); break;
+            }
         }
     }
-    cout<<"IMPOSSIBLE\n";
+    
+    if(zero_b % 2 == 0){
+        rep(i, 0, n){
+            if((i & 1) && (b[i] == 0 && a[i] == 1)){
+                zero_b++; zero_a--;
+                swap(a[i], b[i]); break;
+            }
+        }
+    }
+
+    // rep(i, 0, n) cout<<a[i]<<spc; cout<<nl;
+    // rep(i, 0, n) cout<<b[i]<<spc; cout<<nl;
+    // cout<<zero_a<<spc<<zero_b<<nl;
+    
+    if((zero_a & 1) && (zero_b % 2 == 0)){
+        cout<<"Ajisai\n";
+    }else if((zero_a % 2 == 0) && (zero_b % 2 == 1)){
+        cout<<"Mai\n";
+    }else{
+        cout<<"Tie\n";
+    }
+
 }
 
 // [ Black Pearl ] -------------------------------------------
 signed main() {
     Think_Like_Jack_Sparrow
 
-    // int t; cin >> t; while(t--)
+    int t; cin >> t; while(t--)
     solve();
 
     return 0;

@@ -67,28 +67,42 @@ const ll octroi = 1e7;
 // vector<int> dp(octroi, -1);
 // bitset<octroi> vc;
 
+ll msb(ll n){
+    ll ans = -1;
+    while(n){
+        n >>= 1;
+        ans++;
+    }
+    return ans;
+}
+
 // [ The Great Adventure ] ----------------------------------
 void solve() {
-    ll n, sum; cin>>n>>sum;
-    VEC v(n);
-    vector<pair<ll,ll>>mp;
-    rep(i, 0, n){
-        cin>>v[i];
-        mp.push_back({v[i], i+1});
-    }
+    ll n, m, k; cin>>n>>m>>k;
+    VEC v(m+1);
 
-    sort(all(mp));
-
-    ll l = 0, r = n-1;
-    while(l<r){
-        ll lf = mp[l].first, rg = mp[r].first;
-        if(lf + rg > sum) r--;
-        else if(lf + rg < sum) l++;
-        else{
-            cout<<mp[l].second<<spc<<mp[r].second<<nl; return;
-        }
+    rep(i, 0, m+1) cin>>v[i];
+    ll ans = 0;
+    ll mm = v[m];
+    rep(i, 0, m){
+        if(__builtin_popcount(v[i] xor mm) <= k) ans++;
     }
-    cout<<"IMPOSSIBLE\n";
+    cout<<ans<<nl;
+
+    // VEC v(m+1);
+    // rep(i, 0, m+1){
+    //     ll x; cin>>x;
+    //     v[i] = msb(x);
+    // }
+    // ll cck = v[m];
+
+    // ll ans = 0;
+    // rep(i, 0, m){
+    //     if(abs(cck - v[i]) <= k){
+    //         ans++;
+    //     }
+    // }
+    // cout<<ans<<nl;
 }
 
 // [ Black Pearl ] -------------------------------------------

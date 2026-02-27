@@ -1,85 +1,91 @@
-/*
-This is the same dawn -- the one in which truth shall rise as falsehood falls.
-By the promise of my Almighty, oppression shall perish, and justice shall prevail.
+/**
+ * Bismillah
+ * "The problem is not the problem. The problem is your attitude about the problem."
+ *
+ * THE BLACK PEARL CODEBASE
+ * -------------------------------------------------------------
+ * |  "Take what you can, give nothing back!"                  |
+ * -------------------------------------------------------------
+ */
 
-Free Palestine. Free the Uyghurs. Free the Rohingyas. 
-Free Sudan, Yemen, Iraq, and every land where the blood of the innocent cries out.
-
-They wish to extinguish the light of Allah with their mouths,
-but Allah will perfect His light -- even if the disbelievers hate it.
--- Surah As-Saff (61:8)
-
-And say: "Truth has come and falsehood has vanished.
-Indeed, falsehood is bound to vanish."
--- Surah Al-Isra (17:81)
-
-May Allah's curse be upon the oppressors, the tyrants, and the usurpers of truth.
-May their plans be shattered as were those of Firaun, and their legacy buried like Aad and Thamud.
-
-We stand with our oppressed brothers and sisters -- not with slogans, but with conviction.
-Victory will surely come to those who stand firm upon the Haqq.
-
-"So bear beautiful patience. They see it far off, but We see it near."
--- Surah Al-Ma'arij (70:5-7)
-
-May mankind rise with justice, and may falsehood vanish -- as it is always bound to.
-*/
 #include <bits/stdc++.h>
 using namespace std;
-#define Ajkeo_Mara_Khamu_Bara ios::sync_with_stdio(false); cin.tie(nullptr);
-#define nl '\n'
-#define ll long long
-#define ull unsigned long long
-#define flt long double
-#define all(x) (x).begin(), (x).end()
+
+// [Navigating the Seas] 
+#define FAST_IO ios::sync_with_stdio(false); cin.tie(nullptr);
+#define Think_Like_Jack_Sparrow FAST_IO
+
+// [ The Pirate's Gold ] 
+#define ll      long long
+#define ull     unsigned long long
+#define flt     long double
+
+// [ Provisions & Cargo ]
+#define VEC     vector<ll>
+#define VPR     vector<pair<ll,ll>>
+#define VVEC    vector<vector<ll>>
+#define MP      map<ll, ll>
+#define SET     set<ll>
+#define que     queue<ll>
+#define dque    deque<ll>
+#define prque   priority_queue<ll>
+#define aprque  priority_queue<ll, vector<ll>, greater<ll>>
+
+#define all(x)  (x).begin(), (x).end()
 #define rall(x) (x).rbegin(), (x).rend()
-#define sum(x) accumulate(all(x), 0LL)
-#define maxx(x) *max_element(all(x))
-#define mpi map<int, int>
-#define mps map<string, int>
-#define seti set<int>
-#define que queue<int>
-#define dque deque<int>
-#define prque priority_queue<int>  
-#define aprque priority_queue<int, vector<int>, greater<int>>  
-#define vec vector<ll>
-#define vvec vector<vector<ll>>
-#define yes cout<<"YES\n"
-#define no cout<<"NO\n"
-#define spc " "
-#define rep(i,a,b) for(int i=(a);i<(b);++i)
-#define rrep(i,a,b) for(int i=(a);i>=(b);--i)
-#define each(x,a) for(auto &x : a)
-#define size(x) (int)(x).size()
-#define gcd __gcd
-#define lcm(a,b) ((a)/gcd(a,b)*(b))
-#define mod 1000000007//1e9+7
-#define modn(x) (((x)%mod+mod)%mod)
-const int octroi = 1e7; 
-#define onecount(x) __builtin_popcount(x) 
-// vector<int> dp(octroi, -1); 
+#define sz(x)   (ll)(x).size()
+
+// [ Combat Maneuvers ] --------------------------------------
+#define SUM(x)          accumulate(all(x), 0LL)
+#define MAX(x)          *max_element(all(x))
+#define MIN(x)          *min_element(all(x))
+#define STR_TOUPPER(s)  transform(all(s), s.begin(), ::toupper)
+#define STR_TOLOWER(s)  transform(all(s), s.begin(), ::tolower)
+#define gcd             __gcd
+#define lcm(a,b)        ((a)/gcd(a,b)*(b))
+#define mod             1000000007
+#define modn(x)         (((x)%mod+mod)%mod)
+#define ll_len(n)       ((n) > 0 ? (int)floor(log10((long double)(n)) + 1) : 1)
+
+// [ Constant Voyages ] 
+#define rep(i,a,b)      for(ll i=(a);i<(b);++i)
+#define rrep(i,a,b)     for(ll i=(a);i>=(b);--i)
+#define each(x,a)       for(auto &x : a)
+
+// [ Parlay ]
+#define yes             cout<<"YES\n"
+#define no              cout<<"NO\n"
+#define nl              '\n'
+#define spc             " "
+
+// [ Dropping Anchor ] 
+#define dbg(x)          cerr << "[DBG] " << #x << " = " << x << nl
+#define printv(v)       for(auto x : v) cerr << x << ' '; cerr << nl
+
+// [ Secret Map ] 
+const ll octroi = 1e7;
+// vector<int> dp(octroi, -1);
 // bitset<octroi> vc;
 
-void solve(){
-    int n; cin>>n;
+// [ The Great Adventure ] ----------------------------------
+void solve() {
+    ll x; cin>>x;
 
-    // ll cn = 0;
-    // rep(i, 0, 32){
-    //     if(n&(1<<i)) ++cn;
-    // }    
-    // cout<<cn<<nl;
-
-    ll cn = 0; 
-    while(n){
-        // if(n&1) cn++; n>>=1;
-        cn += (n&1); n>>=1;
-    }
-    cout<<cn<<nl;
+    cout<<__builtin_popcountll(x)<<nl; 
 }
-signed main(){
-    Ajkeo_Mara_Khamu_Bara
-    // int t; cin>>t; while(t--)
-        solve();
-   
+
+    // cout<<(2<<1)<<nl;
+
+// [ Black Pearl ] -------------------------------------------
+signed main() {
+    Think_Like_Jack_Sparrow
+
+    // int t; cin >> t; while(t--) 
+    solve();
+    
     return 0;
 }
+
+// -------------------------------------------------------------
+// You'll always be remembered, mate (Sorif Osman Bin Hady)
+// -------------------------------------------------------------

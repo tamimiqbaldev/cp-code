@@ -68,18 +68,22 @@ const ll octroi = 1e7;
 // bitset<octroi> vc;
 
 // [ The Great Adventure ] ----------------------------------
+bool od(ll n){
+    return n&1;
+}
+
+
 void solve() {
     ll n; cin>>n;
     VEC v(n);
     rep(i, 0, n) cin>>v[i];
-    rep(i, 0, n-2){
-        ll v1 = v[i], v2 = v[i+1];
-        if(((v1&1) && ((v2&1)==0)) || ((v1&1)==0 && (v2&1))){
-            continue;
+    ll opt = 0;
+    rep(i, 0, n-1){
+        if((od(v[i]) && od(v[i+1])) or (!od(v[i]) && !od(v[i+1]))){
+            v[i+1] = v[i]*v[i+1]; opt++;
         }
-
-        
     }
+    cout<<opt<<nl;
 }
 
 // [ Black Pearl ] -------------------------------------------

@@ -69,33 +69,44 @@ const ll octroi = 1e7;
 
 // [ The Great Adventure ] ----------------------------------
 void solve() {
-    ll n, sum; cin>>n>>sum;
-    VEC v(n);
-    vector<pair<ll,ll>>mp;
-    rep(i, 0, n){
-        cin>>v[i];
-        mp.push_back({v[i], i+1});
+    // Code your way out of the locker...
+    ll w, d; cin>>w>>d;
+    ll mn_choc = min(w, d);
+    ll mx_choc = max(w, d);
+
+    ll mn_dmnd = 2;
+    ll mx_dmnd = 1;
+
+    ll layer = 0;
+    ll idx = 0;
+
+    if(mn_choc == 1 && mx_choc > 1){
+        cout<<2<<nl; return;
     }
 
-    sort(all(mp));
-
-    ll l = 0, r = n-1;
-    while(l<r){
-        ll lf = mp[l].first, rg = mp[r].first;
-        if(lf + rg > sum) r--;
-        else if(lf + rg < sum) l++;
-        else{
-            cout<<mp[l].second<<spc<<mp[r].second<<nl; return;
+    while(true){
+        if((idx&1) && mn_choc >= mn_dmnd){
+            mn_choc -= mn_dmnd;
+            mn_dmnd = mx_dmnd * 2;
+            layer++;
+        }else if((idx&1) == 0 && mx_choc >= mx_dmnd){
+            mx_choc -= mx_dmnd;
+            mx_dmnd = mn_dmnd * 2;
+            layer++;
+        }else{
+            break;
         }
+        idx++;
     }
-    cout<<"IMPOSSIBLE\n";
+
+    cout<<layer<<nl;
 }
 
 // [ Black Pearl ] -------------------------------------------
 signed main() {
     Think_Like_Jack_Sparrow
 
-    // int t; cin >> t; while(t--)
+    int t; cin >> t; while(t--)
     solve();
 
     return 0;
@@ -103,4 +114,4 @@ signed main() {
 
 // -------------------------------------------------------------
 // You'll always be remembered, mate (Sorif Osman Bin Hady)
-// -------------------------------------------------------------
+// -------------------------------------------------------------    

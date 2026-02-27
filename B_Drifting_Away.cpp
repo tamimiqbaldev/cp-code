@@ -63,39 +63,52 @@ using namespace std;
 #define printv(v)       for(auto x : v) cerr << x << ' '; cerr << nl
 
 // [ Secret Map ] 
-const ll octroi = 1e7;
+const ll M = 1e7;
 // vector<int> dp(octroi, -1);
 // bitset<octroi> vc;
 
 // [ The Great Adventure ] ----------------------------------
 void solve() {
-    ll n, sum; cin>>n>>sum;
-    VEC v(n);
-    vector<pair<ll,ll>>mp;
-    rep(i, 0, n){
-        cin>>v[i];
-        mp.push_back({v[i], i+1});
+    string s; cin>>s;
+    // if(s[0]=='')
+    
+    if(sz(s)==1){
+        cout<<1<<nl; return;
     }
-
-    sort(all(mp));
-
-    ll l = 0, r = n-1;
-    while(l<r){
-        ll lf = mp[l].first, rg = mp[r].first;
-        if(lf + rg > sum) r--;
-        else if(lf + rg < sum) l++;
-        else{
-            cout<<mp[l].second<<spc<<mp[r].second<<nl; return;
+    
+    ll n = sz(s);
+    rep(i, 0, n-1){
+        if((s[i]==s[i+1] && s[i]=='*') || (s[i]=='>' && s[i+1]=='<') || (s[i]=='>' && s[i+1]=='*') || (s[i]=='*' && s[i+1]=='<')){
+            cout<<-1<<nl; return;
         }
     }
-    cout<<"IMPOSSIBLE\n";
+
+    ll i = 0;
+    ll l = 0, r = 0;
+
+    while(s[i]=='<'){
+        i++;
+    }
+    // if(i<n && s[i]=='*') i++;
+    if(s[i]=='*') i++;
+    l = i;
+
+    ll j = sz(s)-1;
+    while(s[j]=='>'){
+        j--; r++;
+    }
+
+    // if(j >= 0 && s[j] == '*') r++;
+    if(s[j] == '*') r++;
+
+    cout<<max(l, r)<<nl;
 }
 
 // [ Black Pearl ] -------------------------------------------
 signed main() {
     Think_Like_Jack_Sparrow
 
-    // int t; cin >> t; while(t--)
+    int t; cin >> t; while(t--)
     solve();
 
     return 0;

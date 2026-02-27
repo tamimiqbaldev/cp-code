@@ -63,39 +63,76 @@ using namespace std;
 #define printv(v)       for(auto x : v) cerr << x << ' '; cerr << nl
 
 // [ Secret Map ] 
-const ll octroi = 1e7;
+const ll M = 1e7;
 // vector<int> dp(octroi, -1);
 // bitset<octroi> vc;
 
 // [ The Great Adventure ] ----------------------------------
+// void solve() {
+//     ll n; cin>>n;
+//     string s, t = ""; cin>>s;
+//     rep(i, 0, n){
+//         if(i&1) t+='b';
+//         else t+='a';
+//     }
+//     ll aa = 0, bb = 0;
+//     rep(i, 0, n){
+//         if(s[i]=='?') continue;
+//         if(s[i]=='a') aa++;
+//         else bb++;
+//     }
+
+//     rep(i, 0, n){
+//         if(s[i]=='?' && i%2 == 0 && aa > 0){
+//             s[i] = 'a'; continue;
+//         }else if(s[i]=='?' && i%2 != 0 && bb>0){
+//             s[i] = 'b'; continue;
+//         }
+
+//         if(s[i]=='?' && aa>0) s[i] = 'a';
+//         else if(s[i] == '?' && bb>0) s[i] = 'b';
+//     }
+//     // cout<<s<<nl;
+
+//     ll l = 0, r = n-1, id = 0;
+//     while(l<r){
+//         if(s[id]==t[l]) l++;
+//         else if(s[id]==t[r]) r--;
+//         else{
+//             no; return;
+//         }
+//         id++;
+//     }
+//     yes;
+// }
 void solve() {
-    ll n, sum; cin>>n>>sum;
-    VEC v(n);
-    vector<pair<ll,ll>>mp;
-    rep(i, 0, n){
-        cin>>v[i];
-        mp.push_back({v[i], i+1});
+    ll n; cin >> n;
+    string s; cin >> s;
+
+    ll start = 0;
+    if(n & 1) {
+        if(s[0] == 'b') {
+            no; 
+            return;
+        }
+        start = 1;
     }
 
-    sort(all(mp));
-
-    ll l = 0, r = n-1;
-    while(l<r){
-        ll lf = mp[l].first, rg = mp[r].first;
-        if(lf + rg > sum) r--;
-        else if(lf + rg < sum) l++;
-        else{
-            cout<<mp[l].second<<spc<<mp[r].second<<nl; return;
+    for(ll i = start; i + 1 < n; i += 2) {
+        char c1 = s[i];
+        char c2 = s[i+1];
+        if((c1 == 'a' && c2 == 'a') || (c1 == 'b' && c2 == 'b')){
+            no; return;
         }
     }
-    cout<<"IMPOSSIBLE\n";
+    yes;
 }
 
 // [ Black Pearl ] -------------------------------------------
 signed main() {
     Think_Like_Jack_Sparrow
 
-    // int t; cin >> t; while(t--)
+    int t; cin >> t; while(t--)
     solve();
 
     return 0;

@@ -69,33 +69,65 @@ const ll octroi = 1e7;
 
 // [ The Great Adventure ] ----------------------------------
 void solve() {
-    ll n, sum; cin>>n>>sum;
-    VEC v(n);
-    vector<pair<ll,ll>>mp;
+    ll n, k; cin>>n>>k;
+    MP mp;
     rep(i, 0, n){
-        cin>>v[i];
-        mp.push_back({v[i], i+1});
+        ll x; cin>>x;
+        mp[x]++;
     }
+    
+    MP mapi = mp;
+    ll opt = n-k+1;
 
-    sort(all(mp));
+    for(auto &[u, v]: mp){
+        if(opt <= 0) break;
+        if(v > 1){
+            opt -= (v - 1); //minimizing operation iterating from beginning to end of map.
+            v = 1;
+        }
+    } 
 
-    ll l = 0, r = n-1;
-    while(l<r){
-        ll lf = mp[l].first, rg = mp[r].first;
-        if(lf + rg > sum) r--;
-        else if(lf + rg < sum) l++;
-        else{
-            cout<<mp[l].second<<spc<<mp[r].second<<nl; return;
+    // cout<<"Majhari:\n";
+    // for(auto [u, v]: mp) cout<<u<<spc<<v<<nl; 
+
+
+    //now to maximize - iterate from end to begin.
+    for (auto it = mp.rbegin(); it != mp.rend(); ) {
+        if (opt >= it->second) {
+            opt -= it->second;
+
+            // Convert reverse_iterator → normal iterator
+            auto to_erase = next(it).base();
+            mp.erase(to_erase);
+        } else {
+            break;
         }
     }
-    cout<<"IMPOSSIBLE\n";
+
+        // now generate mex, which is the answer.
+        ll valu = 0;
+        for(auto [u, v]: mp){
+            if(mp.count(valu)) valu++;
+            else{
+                break;
+            }
+        }
+        cout<<valu<<nl; 
+
+
+
+        // cout<<"suru: \n";
+        // for(auto [u, v]: mapi) cout<<u<<spc<<v<<nl; 
+
+        // cout<<"Ses:\n";
+        // for(auto [u, v]: mp) cout<<u<<spc<<v<<nl; 
 }
 
 // [ Black Pearl ] -------------------------------------------
 signed main() {
     Think_Like_Jack_Sparrow
 
-    // int t; cin >> t; while(t--)
+    int t; cin >> t; while(t--)
     solve();
 
     return 0;

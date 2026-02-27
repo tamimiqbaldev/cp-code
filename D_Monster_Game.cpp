@@ -63,39 +63,48 @@ using namespace std;
 #define printv(v)       for(auto x : v) cerr << x << ' '; cerr << nl
 
 // [ Secret Map ] 
-const ll octroi = 1e7;
+const ll M = 1e7;
 // vector<int> dp(octroi, -1);
 // bitset<octroi> vc;
 
 // [ The Great Adventure ] ----------------------------------
 void solve() {
-    ll n, sum; cin>>n>>sum;
-    VEC v(n);
-    vector<pair<ll,ll>>mp;
-    rep(i, 0, n){
-        cin>>v[i];
-        mp.push_back({v[i], i+1});
-    }
+    ll n; 
+    cin >> n;
+    vector<ll> a(n), b(n);
+    for(int i = 0; i < n; i++) cin >> a[i];
+    for(int i = 0; i < n; i++) cin >> b[i];
 
-    sort(all(mp));
+    // 1. Sort swords descending
+    sort(a.rbegin(), a.rend());
 
-    ll l = 0, r = n-1;
-    while(l<r){
-        ll lf = mp[l].first, rg = mp[r].first;
-        if(lf + rg > sum) r--;
-        else if(lf + rg < sum) l++;
-        else{
-            cout<<mp[l].second<<spc<<mp[r].second<<nl; return;
+    ll max_score = 0;
+    ll current_levels = 0;
+    ll strikes_needed = 0;
+
+    // 2. Use Two Pointers
+    // i + 1 is the number of swords available if we set difficulty to a[i]
+    for(int i = 0; i < n; i++) {
+        ll swords_available = i + 1;
+        
+        // Increase levels as long as we have enough swords for the next one
+        while(current_levels < n && strikes_needed + b[current_levels] <= swords_available) {
+            strikes_needed += b[current_levels];
+            current_levels++;
         }
+        
+        // Score = difficulty * levels
+        max_score = max(max_score, a[i] * current_levels);
     }
-    cout<<"IMPOSSIBLE\n";
+
+    cout << max_score << nl;
 }
 
 // [ Black Pearl ] -------------------------------------------
 signed main() {
     Think_Like_Jack_Sparrow
 
-    // int t; cin >> t; while(t--)
+    int t; cin >> t; while(t--)
     solve();
 
     return 0;

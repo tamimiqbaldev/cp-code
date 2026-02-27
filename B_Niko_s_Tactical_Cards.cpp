@@ -63,39 +63,31 @@ using namespace std;
 #define printv(v)       for(auto x : v) cerr << x << ' '; cerr << nl
 
 // [ Secret Map ] 
-const ll octroi = 1e7;
+const ll M = 1e7;
 // vector<int> dp(octroi, -1);
 // bitset<octroi> vc;
 
 // [ The Great Adventure ] ----------------------------------
 void solve() {
-    ll n, sum; cin>>n>>sum;
-    VEC v(n);
-    vector<pair<ll,ll>>mp;
-    rep(i, 0, n){
-        cin>>v[i];
-        mp.push_back({v[i], i+1});
-    }
+    ll n; cin>>n;
+    VEC a(n), b(n);
+    rep(i, 0, n) cin>>a[i];
+    rep(i, 0, n) cin>>b[i];
 
-    sort(all(mp));
+    VEC mx(n+1), mn(n+1);
 
-    ll l = 0, r = n-1;
-    while(l<r){
-        ll lf = mp[l].first, rg = mp[r].first;
-        if(lf + rg > sum) r--;
-        else if(lf + rg < sum) l++;
-        else{
-            cout<<mp[l].second<<spc<<mp[r].second<<nl; return;
-        }
+    rep(i, 1, n+1){
+        mx[i] = max(mx[i-1]-a[i-1], b[i-1]-mn[i-1]);
+        mn[i] = min(mn[i-1]-a[i-1], b[i-1]-mx[i-1]);
     }
-    cout<<"IMPOSSIBLE\n";
+    cout<<max(mx[n], mn[n])<<nl;
 }
 
 // [ Black Pearl ] -------------------------------------------
 signed main() {
     Think_Like_Jack_Sparrow
 
-    // int t; cin >> t; while(t--)
+    int t; cin >> t; while(t--)
     solve();
 
     return 0;

@@ -63,39 +63,70 @@ using namespace std;
 #define printv(v)       for(auto x : v) cerr << x << ' '; cerr << nl
 
 // [ Secret Map ] 
-const ll octroi = 1e7;
+const ll M = 1e7;
 // vector<int> dp(octroi, -1);
 // bitset<octroi> vc;
 
-// [ The Great Adventure ] ----------------------------------
-void solve() {
-    ll n, sum; cin>>n>>sum;
-    VEC v(n);
-    vector<pair<ll,ll>>mp;
-    rep(i, 0, n){
-        cin>>v[i];
-        mp.push_back({v[i], i+1});
+vector<int> p;   // stores all primes
+
+// Sieve of Eratosthenes
+void Sieve(int n)
+{
+    vector<bool> v(n + 1, false);  
+
+    v[0] = v[1] = true;            
+
+    for(int i = 2; i * i <= n; i++)
+    {
+        if(v[i]) continue;
+        for(int j = i * i; j <= n; j += i)
+            v[j] = true;
     }
 
-    sort(all(mp));
+    for(int i = 2; i <= n; i++)
+    {
+        if(!v[i])
+            p.push_back(i);        
+    }
+}
 
-    ll l = 0, r = n-1;
-    while(l<r){
-        ll lf = mp[l].first, rg = mp[r].first;
-        if(lf + rg > sum) r--;
-        else if(lf + rg < sum) l++;
-        else{
-            cout<<mp[l].second<<spc<<mp[r].second<<nl; return;
+
+// Returns distinct prime factors of n
+vector<int> primefactor(int n)
+{
+    vector<int> ans;
+
+    for(int i = 0; i < p.size() && 1LL * p[i] * p[i] <= n; i++)
+    {
+        if(n % p[i] == 0)
+        {
+            ans.push_back(p[i]);
+            while(n % p[i] == 0)
+                n /= p[i];
         }
     }
-    cout<<"IMPOSSIBLE\n";
+
+    if(n > 1) ans.push_back(n);   
+
+    return ans;
+}
+
+
+// [ The Great Adventure ] ----------------------------------
+void solve() {
+    ll n; cin>>n;
+    Sieve(sqrt(n)+1);
+    ll answer = 1;
+    vector<int>ans = primefactor(n);
+    rep(i, 0, ans.size()) answer *= ans[i];
+    cout<<answer<<nl;
 }
 
 // [ Black Pearl ] -------------------------------------------
 signed main() {
     Think_Like_Jack_Sparrow
 
-    // int t; cin >> t; while(t--)
+    int t; cin >> t; while(t--)
     solve();
 
     return 0;

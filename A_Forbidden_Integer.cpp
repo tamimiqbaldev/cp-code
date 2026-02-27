@@ -69,33 +69,47 @@ const ll octroi = 1e7;
 
 // [ The Great Adventure ] ----------------------------------
 void solve() {
-    ll n, sum; cin>>n>>sum;
-    VEC v(n);
-    vector<pair<ll,ll>>mp;
-    rep(i, 0, n){
-        cin>>v[i];
-        mp.push_back({v[i], i+1});
+    ll n, k, x; cin>>n>>k>>x;
+    if(k == 1){
+        no; return;
     }
 
-    sort(all(mp));
+    if(x != 1){
+        yes;
+        cout<<n<<nl;
+        rep(i, 0, n) cout<<1<<spc; cout<<nl; return;
+    }
 
-    ll l = 0, r = n-1;
-    while(l<r){
-        ll lf = mp[l].first, rg = mp[r].first;
-        if(lf + rg > sum) r--;
-        else if(lf + rg < sum) l++;
+    if(k == 2 && x == 1){
+        if(n&1) no; 
         else{
-            cout<<mp[l].second<<spc<<mp[r].second<<nl; return;
+            ll vag = n/2;
+            yes;
+            cout<<vag<<nl;
+            rep(i, 0, vag) cout<<2<<spc; cout<<nl;
+        }
+    }else{
+        if(n&1){
+            yes; 
+            ll rem = n-3;
+            ll vag = rem/2;
+            cout<<vag + 1<<nl;
+            cout<<3<<spc;
+            rep(i, 0, vag) cout<<2<<nl;
+        }else{
+            yes;
+            ll vag = n/2;
+            cout<<vag<<nl;
+            rep(i, 0, vag) cout<<2<<nl;
         }
     }
-    cout<<"IMPOSSIBLE\n";
 }
 
 // [ Black Pearl ] -------------------------------------------
 signed main() {
     Think_Like_Jack_Sparrow
 
-    // int t; cin >> t; while(t--)
+    int t; cin >> t; while(t--)
     solve();
 
     return 0;

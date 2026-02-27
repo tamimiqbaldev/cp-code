@@ -1,65 +1,123 @@
+/**
+ * Bismillah
+ * "The problem is not the problem. The problem is your attitude about the problem."
+ *
+ * THE BLACK PEARL CODEBASE
+ * -------------------------------------------------------------
+ * |  "Take what you can, give nothing back!"                  |
+ * -------------------------------------------------------------
+ */
+
 #include <bits/stdc++.h>
 using namespace std;
 
+// [Navigating the Seas] 
 #define FAST_IO ios::sync_with_stdio(false); cin.tie(nullptr);
-#define nl '\n'
-#define int long long
-#define all(x) (x).begin(), (x).end()
-#define pb push_back
-#define mp make_pair
+#define Think_Like_Jack_Sparrow FAST_IO
 
-#define vi vector<int>
-#define vvi vector<vi>
-#define vvvi vector<vvi>
-template<typename T> using v = vector<T>;  
+// [ The Pirate's Gold ] 
+#define ll      long long
+#define ull     unsigned long long
+#define flt     long double
 
-#define forn(i, n) for(int i = 0; i < int(n); i++)
-// for(int i = 0; i<n; i++)
-// for(int i = 0; s[i]!='\0'; i++)
+// [ Provisions & Cargo ]
+#define VEC     vector<ll>
+#define VPR     vector<pair<ll,ll>>
+#define VVEC    vector<vector<ll>>
+#define MP      map<ll, ll>
+#define SET     set<ll>
+#define que     queue<ll>
+#define dque    deque<ll>
+#define prque   priority_queue<ll>
+#define aprque  priority_queue<ll, vector<ll>, greater<ll>>
 
+#define all(x)  (x).begin(), (x).end()
+#define rall(x) (x).rbegin(), (x).rend()
+#define sz(x)   (ll)(x).size()
 
+// [ Combat Maneuvers ] --------------------------------------
+#define SUM(x)          accumulate(all(x), 0LL)
+#define MAX(x)          *max_element(all(x))
+#define MIN(x)          *min_element(all(x))
+#define STR_TOUPPER(s)  transform(all(s), s.begin(), ::toupper)
+#define STR_TOLOWER(s)  transform(all(s), s.begin(), ::tolower)
+#define gcd             __gcd
+#define lcm(a,b)        ((a)/gcd(a,b)*(b))
+#define mod             1000000007
+#define modn(x)         (((x)%mod+mod)%mod)
+#define ll_len(n)       ((n) > 0 ? (int)floor(log10((long double)(n)) + 1) : 1)
+
+// [ Constant Voyages ] 
+#define rep(i,a,b)      for(ll i=(a);i<(b);++i)
+#define rrep(i,a,b)     for(ll i=(a);i>=(b);--i)
+#define each(x,a)       for(auto &x : a)
+
+// [ Parlay ]
+#define yes             cout<<"YES\n"
+#define no              cout<<"NO\n"
+#define nl              '\n'
+#define spc             " "
+
+// [ Dropping Anchor ] 
+#define dbg(x)          cerr << "[DBG] " << #x << " = " << x << nl
+#define printv(v)       for(auto x : v) cerr << x << ' '; cerr << nl
+
+// [ Secret Map ] 
+const ll M = 1e7;
+// vector<int> dp(octroi, -1);
+// bitset<octroi> vc;
+
+// [ The Great Adventure ] ----------------------------------
 void solve() {
-   //Code:
-   int n, k, x;
-   cin>>n>>k>>x;
-   vi v(n);
-   
-    int ml = n*k;
-    vi wife(ml);
-   for(int i = 0; i<n; i++){
-    cin>>v[i];
-    wife[i] = v[i];
-   }
-   for(int i = n; i<(ml); i++){
-        wife[i] = v[i-n];
-   }
-
-    //pfx sm
-    vi pfx(ml);
-    pfx[0] = wife[0];
-    for(int i = 1; i<n; i++){
-        pfx[i] = pfx[i-1] + wife[i];
+    ll n, k, x; cin>>n>>k>>x;
+    VEC v(n);
+    ll sm = 0;
+    rep(i, 0, n){
+        cin>>v[i]; sm += v[i];
     }
+
+    ll cycle = x/sm;
+    ll rem = x % sm;
     
-    int cn = 0;
-
-    for(int i = 0, l = 0; i<ml; i++){
-        if((pfx[i]-l)>=x){
-            cn++;
-            l = pfx[i];
-        }
+    VEC vsm(n+1);
+    for(int i = n-1; i>=0; i--){
+        vsm[i] = vsm[i+1] + v[i];
     }
-    cout<<cn<<nl;
+
+    
+    reverse(all(vsm));
+    // rep(i, 0, n+1) cout<<vsm[i]<<spc; cout<<nl;
+    // cout<<"r: "<<rem<<nl;
+    ll pstn = lower_bound(vsm.begin(), vsm.end(), rem) - vsm.begin();
+
+    
+    // cout<<"r: "<<rem<<nl;
+    // cout<<"p: "<<pstn<<nl;
+
+    //x banayte laglo koto element?
+    // cout<<pstn<<nl;
+    ll ans = (n*k) - (cycle*n) - pstn + 1;
+
+    
+    // cout<<sm<<spc<<rem<<spc<<cycle<<spc<<pstn<<nl;
+    // cout<<pstn<<spc<<cycle<<nl;
+    if(ans < 0){
+        cout<<0<<nl; return;
+    }
+    cout<<ans<<nl;
 
 }
 
+// [ Black Pearl ] -------------------------------------------
 signed main() {
-    FAST_IO
-    int t;
-    // t = 1; 
-    cin >> t;
-    while (t--) {
-        solve();
-    }
+    Think_Like_Jack_Sparrow
+
+    int t; cin >> t; while(t--)
+    solve();
+
     return 0;
 }
+
+// -------------------------------------------------------------
+// You'll always be remembered, mate (Sorif Osman Bin Hady)
+// -------------------------------------------------------------
